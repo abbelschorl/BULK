@@ -32,13 +32,15 @@ let cached: Settings | null = null;
 
 export function loadSettings(): Settings {
   if (cached) return cached;
+  let loaded: Settings;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    cached = raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
+    loaded = raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
   } catch {
-    cached = { ...DEFAULT_SETTINGS };
+    loaded = { ...DEFAULT_SETTINGS };
   }
-  return cached;
+  cached = loaded;
+  return loaded;
 }
 
 export function updateSettings(patch: Partial<Settings>): void {
