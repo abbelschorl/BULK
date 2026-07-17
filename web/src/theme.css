@@ -1139,3 +1139,8 @@ input::placeholder {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
   z-index: 30;
 }
+
+/* Keep the diary's last card clear of the floating Add Food button. */
+.screen.today {
+  padding-bottom: calc(var(--tabbar-height) + 96px + env(safe-area-inset-bottom));
+}
