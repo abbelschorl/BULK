@@ -37,20 +37,20 @@ export function ChartIcon({ size = 22 }: IconProps) {
   );
 }
 
-export function PillIcon({ size = 22 }: IconProps) {
+export function GearIcon({ size = 22 }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} {...stroke}>
-      <rect x="3.5" y="9.5" width="17" height="8" rx="4" transform="rotate(-35 12 13.5)" />
-      <path d="M10 8.2l4.4 6.3" />
+      <circle cx="12" cy="12" r="2.6" />
+      <circle cx="12" cy="12" r="7.8" strokeDasharray="2.1 3" />
     </svg>
   );
 }
 
-export function GearIcon({ size = 22 }: IconProps) {
+export function ScaleIcon({ size = 18 }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} {...stroke}>
-      <circle cx="12" cy="12" r="3" />
-      <path d="M12 2.5l1.2 2.7 2.9-.6 1.3 2.6 2.9.7-.6 2.9 2 2.2-2 2.2.6 2.9-2.9.7-1.3 2.6-2.9-.6L12 21.5l-1.2-2.7-2.9.6-1.3-2.6-2.9-.7.6-2.9-2-2.2 2-2.2-.6-2.9 2.9-.7 1.3-2.6 2.9.6z" />
+      <circle cx="12" cy="15" r="5.5" />
+      <path d="M12 9.5V4M9 4h6" />
     </svg>
   );
 }

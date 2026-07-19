@@ -2,15 +2,13 @@ import { useState } from "react";
 import TodayView from "./views/today/TodayView";
 import FoodView from "./views/food/FoodView";
 import ProgressScreen from "./views/progress/ProgressScreen";
-import SupplementsView from "./views/supplements/SupplementsView";
 import SettingsView from "./views/settings/SettingsView";
-import { SunIcon, SearchIcon, ChartIcon, PillIcon, GearIcon } from "./components/icons";
+import { SunIcon, SearchIcon, ChartIcon, GearIcon } from "./components/icons";
 
 const tabs = [
   { id: "today", label: "Today", icon: SunIcon, view: TodayView },
   { id: "food", label: "Food", icon: SearchIcon, view: FoodView },
   { id: "progress", label: "Progress", icon: ChartIcon, view: ProgressScreen },
-  { id: "supplements", label: "Supplements", icon: PillIcon, view: SupplementsView },
   { id: "settings", label: "Settings", icon: GearIcon, view: SettingsView },
 ] as const;
 
@@ -31,8 +29,7 @@ export default function App() {
             onClick={() => setActive(id)}
             aria-label={label}
           >
-            <Icon />
-            {label}
+            <Icon size={25} />
           </button>
         ))}
       </nav>

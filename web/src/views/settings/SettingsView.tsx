@@ -73,124 +73,126 @@ export default function SettingsView() {
     <div className="screen">
       <h1 className="screen-title">Settings</h1>
 
-      <section>
-        <div className="section-header">Nutrition Goals</div>
-        <div className="card form-card">
-          <Stepper
-            label="Calorie minimum"
-            valueText={`${settings.calorieMinimum} kcal`}
-            onStep={(d) =>
-              updateSettings({ calorieMinimum: clamp(settings.calorieMinimum + d * 50, 1000, 8000) })
-            }
-          />
-          <Stepper
-            label="Protein minimum"
-            valueText={`${settings.proteinMinimum} g`}
-            onStep={(d) =>
-              updateSettings({ proteinMinimum: clamp(settings.proteinMinimum + d * 5, 40, 400) })
-            }
-          />
-          <Stepper
-            label="Desired weekly gain"
-            valueText={Format.weeklyRate(settings.desiredWeeklyGainKg, settings.weightUnit)}
-            onStep={(d) =>
-              updateSettings({
-                desiredWeeklyGainKg: clamp(
-                  Math.round((settings.desiredWeeklyGainKg + d * 0.05) * 100) / 100,
-                  0,
-                  1,
-                ),
-              })
-            }
-          />
-          <div className="text-tertiary form-footnote">
+      <div className="settings-list">
+        <section>
+          <div className="section-header">Nutrition Goals</div>
+          <div className="card list-card">
+            <Stepper
+              label="Calorie minimum"
+              valueText={`${settings.calorieMinimum} kcal`}
+              onStep={(d) =>
+                updateSettings({ calorieMinimum: clamp(settings.calorieMinimum + d * 50, 1000, 8000) })
+              }
+            />
+            <Stepper
+              label="Protein minimum"
+              valueText={`${settings.proteinMinimum} g`}
+              onStep={(d) =>
+                updateSettings({ proteinMinimum: clamp(settings.proteinMinimum + d * 5, 40, 400) })
+              }
+            />
+            <Stepper
+              label="Weekly gain goal"
+              valueText={Format.weeklyRate(settings.desiredWeeklyGainKg, settings.weightUnit)}
+              onStep={(d) =>
+                updateSettings({
+                  desiredWeeklyGainKg: clamp(
+                    Math.round((settings.desiredWeeklyGainKg + d * 0.05) * 100) / 100,
+                    0,
+                    1,
+                  ),
+                })
+              }
+            />
+          </div>
+          <div className="text-tertiary settings-footnote">
             Both goals are minimums. Progress shows red until you reach them, then green. There is
             no upper limit or warning range.
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section>
-        <div className="section-header">Units & Water</div>
-        <div className="card form-card">
-          <div className="row stepper-row">
-            <span className="stepper-label">Weight unit</span>
-            <span className="spacer" />
-            <div className="segmented compact">
-              <button
-                className={settings.weightUnit === "kilograms" ? "selected" : ""}
-                onClick={() => updateSettings({ weightUnit: "kilograms" })}
-              >
-                kg
-              </button>
-              <button
-                className={settings.weightUnit === "pounds" ? "selected" : ""}
-                onClick={() => updateSettings({ weightUnit: "pounds" })}
-              >
-                lb
-              </button>
+        <section>
+          <div className="section-header">Units & Water</div>
+          <div className="card list-card">
+            <div className="row stepper-row">
+              <span className="stepper-label">Weight unit</span>
+              <span className="spacer" />
+              <div className="segmented compact">
+                <button
+                  className={settings.weightUnit === "kilograms" ? "selected" : ""}
+                  onClick={() => updateSettings({ weightUnit: "kilograms" })}
+                >
+                  kg
+                </button>
+                <button
+                  className={settings.weightUnit === "pounds" ? "selected" : ""}
+                  onClick={() => updateSettings({ weightUnit: "pounds" })}
+                >
+                  lb
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="row stepper-row">
-            <span className="stepper-label">Water unit</span>
-            <span className="spacer" />
-            <div className="segmented compact">
-              <button
-                className={settings.waterUnit === "milliliters" ? "selected" : ""}
-                onClick={() => updateSettings({ waterUnit: "milliliters" })}
-              >
-                ml
-              </button>
-              <button
-                className={settings.waterUnit === "fluidOunces" ? "selected" : ""}
-                onClick={() => updateSettings({ waterUnit: "fluidOunces" })}
-              >
-                fl oz
-              </button>
+            <div className="row stepper-row">
+              <span className="stepper-label">Water unit</span>
+              <span className="spacer" />
+              <div className="segmented compact">
+                <button
+                  className={settings.waterUnit === "milliliters" ? "selected" : ""}
+                  onClick={() => updateSettings({ waterUnit: "milliliters" })}
+                >
+                  ml
+                </button>
+                <button
+                  className={settings.waterUnit === "fluidOunces" ? "selected" : ""}
+                  onClick={() => updateSettings({ waterUnit: "fluidOunces" })}
+                >
+                  fl oz
+                </button>
+              </div>
             </div>
+            <Stepper
+              label="Daily water goal"
+              valueText={waterDisplay(settings.waterGoalML, settings.waterUnit)}
+              onStep={(d) =>
+                updateSettings({ waterGoalML: clamp(settings.waterGoalML + d * 250, 500, 8000) })
+              }
+            />
           </div>
-          <Stepper
-            label="Daily water goal"
-            valueText={waterDisplay(settings.waterGoalML, settings.waterUnit)}
-            onStep={(d) =>
-              updateSettings({ waterGoalML: clamp(settings.waterGoalML + d * 250, 500, 8000) })
-            }
-          />
-        </div>
-      </section>
+        </section>
 
-      <section>
-        <div className="section-header">Food & Data</div>
-        <div className="card list-card">
-          <button className="settings-row" onClick={() => setOpenSheet("foods")}>
-            Manage custom foods <span className="chevron-right">›</span>
-          </button>
-          <button className="settings-row" onClick={() => setOpenSheet("meals")}>
-            Manage saved meals <span className="chevron-right">›</span>
-          </button>
-          <button className="settings-row" onClick={() => setOpenSheet("supplements")}>
-            Manage supplements <span className="chevron-right">›</span>
-          </button>
-          <button className="settings-row" onClick={() => setOpenSheet("usda")}>
-            USDA API key{" "}
-            <span className="text-tertiary">{settings.usdaAPIKey ? "set" : "not set"}</span>
-          </button>
-          <button className="settings-row" onClick={exportBackup}>
-            Export backup (JSON)
-          </button>
-          <button className="settings-row" onClick={() => fileInput.current?.click()}>
-            Import backup
-          </button>
-          <button className="settings-row destructive" onClick={() => setShowDeleteConfirm(true)}>
-            Delete all data
-          </button>
-        </div>
-        <div className="text-tertiary settings-footnote">
-          Everything Bulk stores lives in this browser. Food search uses Open Food Facts
-          (openfoodfacts.org, ODbL) and USDA FoodData Central (public domain); only your search text
-          is sent to them, never your diary. Backups are compatible with the Bulk iOS app.
-        </div>
-      </section>
+        <section>
+          <div className="section-header">Food & Data</div>
+          <div className="card list-card">
+            <button className="settings-row" onClick={() => setOpenSheet("foods")}>
+              Manage custom foods <span className="chevron-right">›</span>
+            </button>
+            <button className="settings-row" onClick={() => setOpenSheet("meals")}>
+              Manage saved meals <span className="chevron-right">›</span>
+            </button>
+            <button className="settings-row" onClick={() => setOpenSheet("supplements")}>
+              Manage supplements <span className="chevron-right">›</span>
+            </button>
+            <button className="settings-row" onClick={() => setOpenSheet("usda")}>
+              USDA API key{" "}
+              <span className="text-tertiary">{settings.usdaAPIKey ? "set" : "not set"}</span>
+            </button>
+            <button className="settings-row" onClick={exportBackup}>
+              Export backup (JSON)
+            </button>
+            <button className="settings-row" onClick={() => fileInput.current?.click()}>
+              Import backup
+            </button>
+            <button className="settings-row destructive" onClick={() => setShowDeleteConfirm(true)}>
+              Delete all data
+            </button>
+          </div>
+          <div className="text-tertiary settings-footnote">
+            Everything Bulk stores lives in this browser. Food search uses Open Food Facts
+            (openfoodfacts.org, ODbL) and USDA FoodData Central (public domain); only your search
+            text is sent to them, never your diary. Backups are compatible with the Bulk iOS app.
+          </div>
+        </section>
+      </div>
 
       <input
         ref={fileInput}

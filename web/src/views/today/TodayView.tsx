@@ -9,7 +9,7 @@ import { totalML } from "../../logic/waterMath";
 import { dayKeyDisplayName, dayKeyToDate, shiftDayKey, todayKey } from "../../models/dayKey";
 import type { LogEntry, MealType } from "../../models/types";
 import { Format } from "../../support/format";
-import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from "../../components/icons";
+import { ChevronLeftIcon, ChevronRightIcon, PlusIcon, ScaleIcon } from "../../components/icons";
 import { MacroStat } from "../../components/progress";
 import Sheet from "../../components/Sheet";
 import GoalCard from "./GoalCard";
@@ -48,18 +48,6 @@ export default function TodayView() {
 
   return (
     <div className="screen today">
-      <div className="row today-topbar">
-        <h1 className="screen-title">Bulk</h1>
-        <span className="spacer" />
-        <button
-          className="pill-button"
-          onClick={() => setShowWeighIn(true)}
-          aria-label="Add weigh-in"
-        >
-          ⚖️ Weigh-in
-        </button>
-      </div>
-
       <div className="day-header">
         <button onClick={() => setSelectedDay(shiftDayKey(selectedDay, -1))} aria-label="Previous day">
           <ChevronLeftIcon />
@@ -82,6 +70,13 @@ export default function TodayView() {
         </div>
         <button onClick={() => setSelectedDay(shiftDayKey(selectedDay, 1))} aria-label="Next day">
           <ChevronRightIcon />
+        </button>
+        <button
+          className="weighin-button"
+          onClick={() => setShowWeighIn(true)}
+          aria-label="Add weigh-in"
+        >
+          <ScaleIcon size={17} />
         </button>
       </div>
 
